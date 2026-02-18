@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feasto - Food Delivery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow bg-glow-a"></div>
+  <div class="bg-glow bg-glow-b"></div>
+
+  <header class="site-header" id="home">
+    <a href="#home" class="brand"><b>Feasto</b></a>
+    <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">Menu</button>
+    <nav id="siteNav" class="site-nav">
+      <a href="#home">Home</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#menu">Menu</a>
+      <a href="#cart">Cart</a>
+      <a href="#payment">Payment</a>
+      <a href="#tracking">Tracking</a>
+    </nav>
+    <button id="cartBtn" class="btn btn-light" type="button">&#128722; Cart <span id="cartCount">0</span></button>
+  </header>
+
+  <main>
+    <section class="hero section">
+      <div class="hero-copy">
+        <p class="tag">India's Fastest Food Companion</p>
+        <h1>Hot meals, bold flavors, delivered in minutes.</h1>
+        <p class="muted">Order from top restaurants near you with live tracking, instant payments, and exclusive combos.</p>
+        <div class="location-picker">
+          <label for="locationSelect">Select Location</label>
+          <select id="locationSelect">
+            <option value="">Choose Area</option>
+            <option value="Mysuru">Kuvempunagara</option>
+            <option value="Mysuru">JP Nagara</option>
+            <option value="Mysuru">Hootagalli</option>
+            <option value="Mysuru">Saraswatipurm</option>
+            <option value="Mysuru">VV Mohalla</option>
+            <option value="Mysuru">Vijaynagara</option>
+            <option value="Mysuru">Bhogadi</option>
+          </select>
+          <p id="locationStatus" class="muted">Current location: Not selected</p>
+        </div>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary">Explore Menu</a>
+          <a href="#dashboard" class="btn btn-light">Dashboard</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="hero-media-top">
+          <button id="heroProfileBtn" class="hero-profile-btn" type="button">&#128100; Profile</button>
+        </div>
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Food platter" />
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section panel">
+      <h2>Dashboard</h2>
+      <div class="dashboard-grid">
+        <article class="dash-card">
+          <span id="dashItems">0</span>
+          <p>Items in Cart</p>
+        </article>
+        <article class="dash-card">
+          <span id="dashTotal">Rs 0</span>
+          <p>Cart Total</p>
+        </article>
+        <article class="dash-card">
+          <span id="dashRating">--</span>
+          <p>Avg Rated Dishes</p>
+        </article>
+        <article class="dash-card">
+          <span id="dashLocation">Not selected</span>
+          <p>Delivery Location</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="menu" class="section">
+      <div class="section-head">
+        <h2>Popular Dishes</h2>
+        <div id="categoryFilters" class="filters"></div>
+      </div>
+      <div class="price-filter">
+        <input id="minPriceInput" type="number" min="0" placeholder="Min amount (Rs)" />
+        <input id="maxPriceInput" type="number" min="0" placeholder="Max amount (Rs)" />
+        <button id="applyPriceFilterBtn" class="btn btn-light" type="button">Apply Range</button>
+        <button id="resetPriceFilterBtn" class="btn btn-light" type="button">Reset</button>
+      </div>
+      <div id="dishGrid" class="dish-grid"></div>
+    </section>
+
+    <section id="cart" class="section panel">
+      <h2>Cart</h2>
+      <div id="cartItems" class="cart-list"></div>
+      <div class="total-row">
+        <span>Subtotal</span>
+        <strong id="subTotal">Rs 0</strong>
+      </div>
+      <div class="cart-actions">
+        <button id="clearCartBtn" class="btn btn-light" type="button">Clear Cart</button>
+        <button id="goPaymentBtn" class="btn btn-primary" type="button">Proceed To Payment</button>
+      </div>
+    </section>
+
+    <section id="payment" class="section panel">
+      <h2>Payment Modes</h2>
+      <input id="deliveryAddress" type="text" placeholder="Enter full delivery address" />
+      <input id="deliveryLandmark" type="text" placeholder="Landmark (optional)" />
+      <div class="pay-grid">
+        <label><input type="radio" name="payMode" value="UPI" checked /> UPI</label>
+        <label><input type="radio" name="payMode" value="Card" /> Card</label>
+        <label><input type="radio" name="payMode" value="Wallet" /> Wallet</label>
+        <label><input type="radio" name="payMode" value="Cash on Delivery" /> Cash on Delivery</label>
+      </div>
+      <input id="payDetail" type="text" placeholder="Enter UPI ID" />
+      <button id="placeOrderBtn" class="btn btn-primary" type="button">Place Order</button>
+    </section>
+
+    <section id="tracking" class="section panel">
+      <h2>Tracking Orders</h2>
+      <p class="muted">Use the draggable sidebar for live order status.</p>
+      <button id="openTrackingBtn" class="btn btn-light" type="button">Open Tracking Sidebar</button>
+    </section>
+  </main>
+
+  <aside id="trackingSidebar" class="tracking-sidebar">
+    <div id="trackingDragHandle" class="tracking-header">
+      <strong>Tracking Orders</strong>
+      <button id="closeTrackingBtn" type="button" class="close-track">Close</button>
+    </div>
+    <div class="tracking-body">
+      <p id="orderMeta" class="muted">No active order yet.</p>
+      <div id="trackSteps" class="track-steps"></div>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="footer-wrap">
+      <div class="footer-brand-block">
+        <h3 class="footer-brand">FEASTO</h3>
+        <p>"From kitchen fire to your door, we deliver comfort on every plate."</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>ABOUT</h4>
+        <a href="#home">Our Story</a>
+        <a href="#dashboard">How It Works</a>
+        <a href="#menu">Food Categories</a>
+      </div>
+
+      <div class="footer-links">
+        <h4>LEGAL</h4>
+        <a href="#home">Privacy Policy</a>
+        <a href="#home">Terms of Use</a>
+        <a href="#home">Refund Policy</a>
+      </div>
+
+      <div class="footer-links">
+        <h4>SUPPORT</h4>
+        <a href="#tracking">Order Help</a>
+        <a href="#payment">Payment Help</a>
+        <a href="#cart">Cart Issues</a>
+      </div>
+
+      <div class="footer-links" id="contact">
+        <h4>CONTACT</h4>
+        <p>Email: support@feasto.com</p>
+        <p>Phone: +91 98765 43210</p>
+        <p>Address: MG Road, Bengaluru</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Serving India one delicious delivery at a time © 2026 FEASTO</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+  <div id="sparkleLayer" class="sparkle-layer"></div>
+  <div id="deliveryPopup" class="delivery-popup">
+    <div class="delivery-popup-card">
+      <h3>Order Successfully Delivered</h3>
+      <p>Your dish has arrived hot and fresh.</p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
